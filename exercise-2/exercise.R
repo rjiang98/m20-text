@@ -12,7 +12,7 @@ setwd('~/Documents/info201-s17/m20-text/exercise-2/')
 # Read in web page
 page <- read_html('https://www.washington.edu/students/crscat/info.html')
 
-# Classes
+# Extract descriptions of each course into a dataframe (may take multiple steps)
 course.titles <- page %>% html_nodes('p b') %>% html_text() 
 descriptions <- page %>% html_nodes('p') %>% html_text()
 classes <- data.frame(title = course.titles, description = descriptions[2:length(descriptions)], stringsAsFactors = FALSE)
@@ -20,7 +20,7 @@ classes <- data.frame(title = course.titles, description = descriptions[2:length
 # How many courses are in the catalogue?
 num.courses <- nrow(classes) # 46
 
-# Create a tidytext sturcture of words
+# Create a tidytext sturcture of all words
 all.words <- classes %>% unnest_tokens(word, description)
 
 # Which words do we use to describe our courses?
@@ -29,7 +29,7 @@ word.count <- all.words %>%
   summarize(count = n()) %>% 
   arrange(-count)
 
-# Create a set of stop words by adding irrelevant words to the stop_words dataframe
+# Create a set of stop words by adding (more) irrelevant words to the stop_words dataframe
 more.stop.words <- data.frame(
   word = c("course", "info", "information"),
   lexicon = "custom"

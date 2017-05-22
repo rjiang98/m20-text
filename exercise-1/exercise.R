@@ -12,7 +12,7 @@ setwd('~/Documents/info201-s17/m20-text/exercise-1/')
 # Load booksinto a dataframe using the austen_books() function
 original.books <- austen_books() 
 
-# How many books are in the dataset
+# How many books are in the dataset?
 num.books <- length(unique(original.books$book))
 
 # Which book has the most lines?
